@@ -42,9 +42,6 @@ setopt  HIST_VERIFY
 #====================================================
 # ALIASES
 #====================================================
-alias -s txt="open -a Sublime\ Text.app"
-alias -s log="open -a Console"
-
 # Always use color output for `ls`
 colorflag="-G"
 alias ls='command ls ${colorflag}'
