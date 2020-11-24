@@ -66,9 +66,9 @@ alias reload='exec ${SHELL} -l'
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-# Shortcuts
-alias d='cd ~/Documents'
-alias dl='cd ~/Downloads'
-alias dt='cd ~/Desktop'
-alias p='cd ~/Projects'
-alias pk='cd ~/Pictures'
+# Homebrew Shortcuts
+alias bl='brew list'
+alias bi='brew install'
+alias bs='brew search'
+alias bci='brew cask install'
+alias bu='brew upgrade'
