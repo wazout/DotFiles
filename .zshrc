@@ -66,6 +66,9 @@ alias reload='exec ${SHELL} -l'
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
+# Change exit command
+alias bye='exit'
+
 # Homebrew Shortcuts
 alias bl='brew list'
 alias bi='brew install'
