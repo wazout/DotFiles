@@ -1,6 +1,27 @@
+export PATH="/usr/local/sbin:$PATH"
+
 # Enable colors and change prompt:
 export LSCOLORS='Gxfxcxdxbxegedabagacad'
 PROMPT='%(?.%10F√.%9F?%?)%f %B%11F%1~%f%b %(!.#.🦠) '
+
+if which brew &>/dev/null
+then
+  [ -w "$HOMEBREW_PREFIX/bin/brew" ] && \
+    [ ! -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_brew" ] && \
+    mkdir -p "$HOMEBREW_PREFIX/share/zsh/site-functions" &>/dev/null && \
+    ln -s "$HOMEBREW_PREFIX/Library/Contributions/brew_zsh_completion.zsh" \
+          "$HOMEBREW_PREFIX/share/zsh/site-functions/_brew"
+  FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
+fi
+
+# Git Intergration
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
+zstyle ':vcs_info:*' enable git
 
 # Auto/tab complete:
 autoload -Uz compinit && compinit
@@ -39,6 +60,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 # show substitute command
 setopt  HIST_VERIFY
+
 #====================================================
 # ALIASES
 #====================================================
@@ -53,25 +75,22 @@ alias la='ls -aFl'
 alias lll='ls -aFRl'
 # List Everything human readable
 alias lr='ls -tRFh'
-
-# Get week number
-alias week='date +%V'
-
-# Flush the dns cache
-alias flush='sudo arp -ad; dscacheutil -flushcache'
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload='exec ${SHELL} -l'
-
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
-
 # Change exit command
 alias bye='exit'
+# Get week number
+alias week='date +%V'
+# Flush the dns cache
+alias flush='sudo arp -ad; dscacheutil -flushcache'
+# Reload the shell (i.e. invoke as a login shell)
+alias reload='exec ${SHELL} -l'
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
 
 # Homebrew Shortcuts
 alias bl='brew list'
 alias bi='brew install'
 alias bs='brew search'
-alias bci='brew cask install'
 alias bu='brew upgrade'
+alias bup='brew update'
+alias bc='brew cleanup'
+alias bui='brew uninstall'
